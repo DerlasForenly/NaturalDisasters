@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <DisastersFilter/>
+    <DisastersTable/>
+    <Pagination/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import DisastersFilter from "./components/Filter.vue"
+import DisastersTable from "./components/DisastersTable.vue"
+import Pagination from "./components/Pagination.vue"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    DisastersFilter,
+    DisastersTable,
+    Pagination
   }
 }
 </script>
@@ -23,6 +28,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding: 15px;
 }
 </style>
