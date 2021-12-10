@@ -15,6 +15,10 @@ class CreateNaturalDisastersTable extends Migration
     {
         Schema::create('natural_disasters', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('type');
+            $table->string('reference');
+            $table->date('date');
             $table->timestamps();
         });
     }
