@@ -1,14 +1,29 @@
 <template>
 	<div class="row">
-		<button>Left</button>
-		<label>?</label>
-		<button>Right</button>
+		<button @click="prev">Left</button>
+		<label>{{ page }}</label>
+		<button @click="next">Right</button>
 	</div>
 </template>
 
 <script>
 export default {
-  name: 'Pagination'
+  name: 'Pagination',
+  props: {
+		page: {
+			type: Number,
+			required: true
+		}
+  },
+	methods: {
+		prev() {
+			if (this.page - 1 <= 0) return 
+			this.$emit('change-page', this.page - 1)
+		},
+		next() {
+			this.$emit('change-page', this.page + 1)
+		}
+	},
 }
 </script>
 

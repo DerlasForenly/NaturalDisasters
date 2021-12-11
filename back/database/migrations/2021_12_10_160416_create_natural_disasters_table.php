@@ -15,10 +15,13 @@ class CreateNaturalDisastersTable extends Migration
     {
         Schema::create('natural_disasters', function (Blueprint $table) {
             $table->id();
+            $table->string('nasa_id');
             $table->string('title');
-            $table->string('category');
-            $table->string('reference');
-            $table->date('date');
+            $table->string('description')->nullable();
+            $table->string('nasa_link');
+            $table->string('status');
+            $table->string('categories'); //array
+            $table->string('geometries'); //array
             $table->timestamps();
         });
     }

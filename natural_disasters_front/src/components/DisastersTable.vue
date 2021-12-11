@@ -5,16 +5,25 @@
 			<th>Date and time</th>
 			<th>Reference</th>
 		</tr>
-		<tr>
-			<td>Some shit</td>
-			<td>Yesterday</td>
-			<td>http://localhost:8080</td>
-		</tr>
+		<disaster-item 
+			v-for="disaster in disasters" 
+			:key="disaster.id" 
+			:disaster="disaster">
+		</disaster-item>
 	</table>
 </template>
 
 <script>
+import DisasterItem from './DisasterItem.vue'
+
 export default {
+  components: { DisasterItem },
+	props: {
+		disasters: {
+			type: Array,
+			required: true
+		}
+	},
   name: 'DisastersTable'
 }
 </script>
