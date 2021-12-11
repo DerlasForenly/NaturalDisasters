@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Geometry extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'date',
+        'type',
+        'coordinates'
+    ];
 }

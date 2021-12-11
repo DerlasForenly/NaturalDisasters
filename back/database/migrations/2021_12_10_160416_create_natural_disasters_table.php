@@ -15,7 +15,7 @@ class CreateNaturalDisastersTable extends Migration
     {
         Schema::create('natural_disasters', function (Blueprint $table) {
             $table->id();
-            $table->string('nasa_id');
+            $table->string('nasa_id')->unique();
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('nasa_link');

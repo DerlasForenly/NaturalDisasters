@@ -7,6 +7,7 @@ use App\Http\Requests\PostNaturalDisasterRequest;
 use App\Models\Category;
 use App\Models\NaturalDisaster;
 use App\Models\Source;
+use App\Models\Geometry;
 
 class NaturalDisasterController extends Controller
 {
@@ -26,8 +27,15 @@ class NaturalDisasterController extends Controller
                 ]);
             }
 
+            foreach ($event['geometries'] as $geometry) {
+                $new_geometry = Geometry::create([
+                    'date' => $geometry['date'],
+                    'type' => $geometry['type'],
+                    'coordinates' => "[" . $geometry['coordinates'][0] . ", " . $geometry['coordinates'][1] . "]"
+                ]);
+            }
 
-            $disaster = NaturalDisaster::create([
+            $disaster = NaturalDisaster::createIfNotExist([
                 'title' => $event['title'],
                 'nasa_id' => $event['id'],
                 'description' => $event['description'],
