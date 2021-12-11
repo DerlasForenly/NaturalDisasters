@@ -1,16 +1,19 @@
 <template>
-	<table>
-		<tr>
-			<th>Title</th>
-			<th>Date and time</th>
-			<th>Reference</th>
-		</tr>
-		<disaster-item 
-			v-for="disaster in disasters" 
-			:key="disaster.id" 
-			:disaster="disaster">
-		</disaster-item>
-	</table>
+	<div>
+		<table v-if="disasters.length !== 0">
+			<tr>
+				<th>Title</th>
+				<th>Date and time</th>
+				<th>Reference</th>
+			</tr>
+			<disaster-item 
+				v-for="disaster in disasters" 
+				:key="disaster.id" 
+				:disaster="disaster">
+			</disaster-item>
+		</table>
+		<div v-else>Table is empty</div>
+	</div>
 </template>
 
 <script>
@@ -42,6 +45,7 @@ th, td {
 
 th {
 	color: black;
+	background: whitesmoke;
 }
 
 td {

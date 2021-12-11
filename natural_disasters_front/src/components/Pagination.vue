@@ -1,8 +1,8 @@
 <template>
 	<div class="row">
-		<button @click="prev">Left</button>
+		<button @click="prev">Prev</button>
 		<label>{{ page }}</label>
-		<button @click="next">Right</button>
+		<button @click="next">Next</button>
 	</div>
 </template>
 
@@ -33,11 +33,21 @@ export default {
 	margin: auto;
 	display: flex;
 	flex-direction: row;
+	margin-top: 10px;
 }
 
 label, button {
+	color: gray;
 	padding: 5px;
 	border: none;
 	background: none;
+}
+
+label {
+	color: black;
+}
+
+button:hover {
+	color: black;
 }
 </style>

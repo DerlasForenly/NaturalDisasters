@@ -1,10 +1,12 @@
 <template>
 	<form @event.prevent class="row">
-		<my-select 
-			:options="disastersCategories" 
-			@change-option="changeCategory" 
-			:selectName="'Category'">
-		</my-select>
+		<div class="row">
+			<label>Category:</label>
+			<select @change="changeCategory">
+				<option>All</option>
+				<option v-for="category in categories" :key="category.id">{{ category.title }}</option>
+			</select>
+		</div>
 		<div class="row">
 			<label>Lines per page:</label>
 			<select @change="changeLines" :options="linesPerPage">
@@ -15,23 +17,13 @@
 </template>
 
 <script>
-import MySelect from './UI/MySelect.vue'
+import axios from 'axios'
 
 export default {
-  components: { MySelect },
   name: 'DisastersFilter',
 	data() {
 		return {
-			disastersCategories: [
-				{
-					id: 1,
-					value: "Rain"
-				},
-				{
-					id: 2,
-					value: 'Shitpost'
-				}
-			],
+			categories: [],
 			linesPerPage: [5, 10, 20]
 		}
 	},
@@ -44,16 +36,15 @@ export default {
     },
 		async fetchCategories() {
 			try {
-				console.log('hello')
+				const response = await axios.get(`https://eonet.gsfc.nasa.gov/api/v2.1/categories`)
+				this.categories = response.data.categories
 			} catch (e) {
 				console.log(e)
-			} finally {
-				console.log('finally')
 			}
 		}
   },
 	mounted() {
-		
+		this.fetchCategories()
 	},
 }
 </script>
