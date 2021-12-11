@@ -19,9 +19,9 @@ class CreateNaturalDisastersTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('nasa_link');
-            $table->string('status');
-            $table->string('categories'); //array
-            $table->string('geometries'); //array
+            //$table->string('status');
+            //$table->string('categories'); //array
+            //$table->string('geometries'); //array
             $table->timestamps();
         });
     }

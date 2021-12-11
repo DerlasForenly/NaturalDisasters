@@ -81,12 +81,14 @@ export default {
         const response = await axios({
           method: 'post',
           url: 'http://localhost:8000/api/events',
-          data: this.disasters
+          data: {
+            events: this.disasters
+          }
         })
 
         console.log(response.data)
       } catch (e) {
-        console.log(e)
+        console.log(e.message)
       }
     },
     async fetchDisasters() {

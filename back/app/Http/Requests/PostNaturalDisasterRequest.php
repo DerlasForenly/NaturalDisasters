@@ -24,7 +24,7 @@ class PostNaturalDisasterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'events' => 'required'
         ];
     }
 }

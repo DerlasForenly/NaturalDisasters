@@ -15,6 +15,8 @@ class CreateSourcesTable extends Migration
     {
         Schema::create('sources', function (Blueprint $table) {
             $table->id();
+            $table->string('nasa_id')->unique();
+            $table->string('url');
             $table->timestamps();
         });
     }

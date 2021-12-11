@@ -15,6 +15,9 @@ class CreateGeometriesTable extends Migration
     {
         Schema::create('geometries', function (Blueprint $table) {
             $table->id();
+            $table->string('date');
+            $table->string('type');
+            $table->string('coordinates');
             $table->timestamps();
         });
     }
