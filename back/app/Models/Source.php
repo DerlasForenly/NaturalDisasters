@@ -27,4 +27,9 @@ class Source extends Model
 
         return $source;
     }
+
+    public function disasters()
+    {
+        return $this->belongsToMany(NaturalDisaster::class, "disaster_sources");
+    }
 }

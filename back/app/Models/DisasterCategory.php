@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Geometry extends Model
+class DisasterCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'date',
-        'type',
-        'coordinates',
         'natural_disaster_id',
+        'category_id',
     ];
 }

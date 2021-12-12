@@ -17,3 +17,4 @@ use App\Http\Controllers\NaturalDisasterController;
 */
 
 Route::post('events', [NaturalDisasterController::class, 'store']);
+Route::get('events', [NaturalDisasterController::class, 'index']);
