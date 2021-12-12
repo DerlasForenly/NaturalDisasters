@@ -22,44 +22,44 @@ class NaturalDisasterController extends Controller
 
     public function store(PostNaturalDisasterRequest $request) {
         foreach ($request->events as $event) {
-            $disaster = NaturalDisaster::createIfNotExist([
+            $disaster = NaturalDisaster::createOrFail([
                 'title' => $event['title'],
                 'nasa_id' => $event['id'],
                 'description' => $event['description'],
                 'nasa_link' => $event['link'],
             ]);
 
-            foreach ($event['categories'] as $category) {
-                $new_category = Category::createIfNotExist([
-                    'title' => $category['title'],
-                    'nasa_id' => $category['id']
-                ]);
+            if ($disaster) {
+                foreach ($event['categories'] as $category) {
+                    $new_category = Category::createIfNotExist([
+                        'title' => $category['title'],
+                        'nasa_id' => $category['id']
+                    ]);
+                    DisasterCategory::create([
+                        'natural_disaster_id' => $disaster->id,
+                        'category_id' => $new_category->id,
+                    ]);
+                }
 
-                DisasterCategory::create([
-                    'natural_disaster_id' => $disaster->id,
-                    'category_id' => $new_category->id,
-                ]);
-            }
+                foreach ($event['sources'] as $source) {
+                    $new_source = Source::createIfNotExist([
+                        'url' => $source['url'],
+                        'nasa_id' => $source['id']
+                    ]);
+                    DisasterSource::create([
+                        'natural_disaster_id' => $disaster->id,
+                        'source_id' => $new_source->id,
+                    ]);
+                }
 
-            foreach ($event['sources'] as $source) {
-                $new_source = Source::createIfNotExist([
-                    'url' => $source['url'],
-                    'nasa_id' => $source['id']
-                ]);
-
-                DisasterSource::create([
-                    'natural_disaster_id' => $disaster->id,
-                    'source_id' => $new_source->id,
-                ]);
-            }
-
-            foreach ($event['geometries'] as $geometry) {
-                $new_geometry = Geometry::create([
-                    'natural_disaster_id' => $disaster['id'],
-                    'date' => $geometry['date'],
-                    'type' => $geometry['type'],
-                    'coordinates' => "[" . $geometry['coordinates'][0] . ", " . $geometry['coordinates'][1] . "]"
-                ]);
+                foreach ($event['geometries'] as $geometry) {
+                    $new_geometry = Geometry::createIfNotExist([
+                        'natural_disaster_id' => $disaster['id'],
+                        'date' => $geometry['date'],
+                        'type' => $geometry['type'],
+                        'coordinates' => "[" . $geometry['coordinates'][0] . ", " . $geometry['coordinates'][1] . "]"
+                    ]);
+                }
             }
         }
 

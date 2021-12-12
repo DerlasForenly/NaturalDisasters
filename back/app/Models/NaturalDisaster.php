@@ -34,16 +34,22 @@ class NaturalDisaster extends Model
         $naturalDisaster = NaturalDisaster::where('nasa_id', $data['nasa_id'])->first();
 
         if (!$naturalDisaster) {
-            $naturalDisaster = NaturalDisaster::create([
-                'title' => $data['title'],
-                'nasa_id' => $data['nasa_id'],
-                'description' => $data['description'],
-                'nasa_link' => $data['nasa_link'],
-                //'status' => $data['status'],
-            ]);
+            $naturalDisaster = NaturalDisaster::create($data);
         }
 
         return $naturalDisaster;
+    }
+
+    public static function createOrFail($data)
+    {
+        $naturalDisaster = NaturalDisaster::where('nasa_id', $data['nasa_id'])->first();
+
+        if (!$naturalDisaster) {
+            $naturalDisaster = NaturalDisaster::create($data);
+            return $naturalDisaster;
+        }
+
+        return null;
     }
 
     public function categories()

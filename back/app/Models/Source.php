@@ -14,15 +14,19 @@ class Source extends Model
         'url',
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'pivot',
+    ];
+
     public static function createIfNotExist($data)
     {
         $source = Source::where('nasa_id', $data['nasa_id'])->first();
 
         if (!$source) {
-            $source = Source::create([
-                'nasa_id' => $data['nasa_id'],
-                'url' => $data['url'],
-            ]);
+            $source = Source::create($data);
         }
 
         return $source;

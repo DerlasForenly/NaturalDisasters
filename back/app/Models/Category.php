@@ -14,15 +14,19 @@ class Category extends Model
         'title',
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'pivot',
+    ];
+
     public static function createIfNotExist($data)
     {
         $category = Category::where('nasa_id', $data['nasa_id'])->first();
 
         if (!$category) {
-            $category = Category::create([
-                'nasa_id' => $data['nasa_id'],
-                'title' => $data['title'],
-            ]);
+            $category = Category::create($data);
         }
 
         return $category;

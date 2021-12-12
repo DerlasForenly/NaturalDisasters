@@ -15,4 +15,15 @@ class Geometry extends Model
         'coordinates',
         'natural_disaster_id',
     ];
+
+    public static function createIfNotExist($data)
+    {
+        $geometry = Geometry::where('natural_disaster_id', $data['natural_disaster_id'])->where('date', $data['date'])->first();
+
+        if (!$geometry) {
+            $geometry = Geometry::create($data);
+        }
+
+        return $geometry;
+    }
 }
