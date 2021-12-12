@@ -14,6 +14,7 @@
       :page="currentPage"
       @change-page="changePage"
     />
+    <messages v-if="!isDisastersSaving" :messages="messages"></messages>
   </div>
 </template>
 
@@ -22,13 +23,15 @@ import axios from 'axios'
 import DisastersFilter from "./components/DisastersFilter.vue"
 import DisastersTable from "./components/DisastersTable.vue"
 import Pagination from "./components/Pagination.vue"
+import Messages from "./components/Messages.vue"
 
 export default {
   name: 'App',
   components: {
     DisastersFilter,
     DisastersTable,
-    Pagination
+    Pagination,
+    Messages,
   },
   data() {
     return {
@@ -38,6 +41,8 @@ export default {
       disasters: [],
       filteredDisasters: [],
       selectedLines: 5,
+      isDisastersSaving: true,
+      messages: [],
     }
   },
   methods: {
@@ -86,9 +91,14 @@ export default {
           }
         })
 
-        console.log(response.data)
+        console.log(response.data.message)
+
+        this.messages.push(response.data.message)
+        this.isDisastersSaving = false
       } catch (e) {
         console.log(e.message)
+      } finally {
+        this.isDisastersSaving = false
       }
     },
     async fetchDisasters() {
@@ -97,11 +107,9 @@ export default {
 
         const response = await axios.get(`https://eonet.gsfc.nasa.gov/api/v2.1/events`)
         const events = response.data.events
-        console.log(events)
 
         this.disasters = events
         this.filteredDisasters = events
-        this.isDisastersLoading = false
         
         this.updateCurrentDisasters()
         this.postDisasters()

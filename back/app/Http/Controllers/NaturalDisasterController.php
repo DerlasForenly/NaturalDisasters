@@ -21,6 +21,8 @@ class NaturalDisasterController extends Controller
     }
 
     public function store(PostNaturalDisasterRequest $request) {
+        $countSavedDisasters = 0;
+
         foreach ($request->events as $event) {
             $disaster = NaturalDisaster::createOrFail([
                 'title' => $event['title'],
@@ -30,6 +32,8 @@ class NaturalDisasterController extends Controller
             ]);
 
             if ($disaster) {
+                $countSavedDisasters++;
+
                 foreach ($event['categories'] as $category) {
                     $new_category = Category::createIfNotExist([
                         'title' => $category['title'],
@@ -63,9 +67,14 @@ class NaturalDisasterController extends Controller
             }
         }
 
-        return response()->json([
-            'message' => 'Events have been saved to DB',
-            'events' => $request->events,
-        ], 200);
+        if ($countSavedDisasters > 0) {
+            return response()->json([
+                'message' => 'New ' . $countSavedDisasters . ' events have been saved to DB',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No new events have been saved to DB',
+            ], 200);
+        }
     }
 }
