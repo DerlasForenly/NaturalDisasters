@@ -1,16 +1,18 @@
 <template>
 	<div>
 		<table v-if="disasters.length !== 0">
-			<tr>
-				<th>Title</th>
-				<th>Date and time</th>
-				<th>Reference</th>
-			</tr>
-			<disaster-item 
-				v-for="disaster in disasters" 
-				:key="disaster.id" 
-				:disaster="disaster">
-			</disaster-item>
+			<tbody>
+				<tr>
+					<th>Title</th>
+					<th>Date and time</th>
+					<th>On Google Maps</th>
+				</tr>
+				<disaster-item 
+					v-for="disaster in disasters" 
+					:key="disaster.id" 
+					:disaster="disaster">
+				</disaster-item>
+			</tbody>
 		</table>
 		<div v-else>Table is empty</div>
 	</div>
@@ -38,17 +40,10 @@ table {
 	border-collapse: collapse;
 }
 
-th, td {
+th {
 	border: 1px solid lightgray;
 	padding: 5px;
-}
-
-th {
 	color: black;
 	background: whitesmoke;
-}
-
-td {
-	color: gray;
 }
 </style>
