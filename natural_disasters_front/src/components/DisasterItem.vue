@@ -1,18 +1,13 @@
 <template>
 	<tr>
 		<td>{{ disaster.title }}</td>
-		<td>{{ disaster.geometries[0].date }}</td>
-		<td><a :href="href" target="_blank">{{ href }}</a></td>
+		<td>{{ getDate }}</td>
+		<td><a :href="getUrl()" target="_blank">{{ getUrl() }}</a></td>
 	</tr>
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-			href: `https://www.google.com/maps/search/?api=1&query=${this.getLat()},${this.getLng()}`
-		}
-	},
 	props: {
 		disaster: {
 			type: Object,
@@ -20,11 +15,20 @@ export default {
 		}
 	},
 	methods: {
+		getUrl() {
+			return `https://www.google.com/maps/search/?api=1&query=${this.getLat},${this.getLng}`
+		}
+	},
+	computed: {
 		getLng() {
-			return this.disaster.geometries[0].coordinates[0];
+			return this.disaster.geometries[0].coordinates[0]
 		},
 		getLat() {
 			return this.disaster.geometries[0].coordinates[1]
+		},
+		getDate() {
+			const date = new Date(this.disaster.geometries[0].date)
+			return date.toGMTString()
 		}
 	},
   name: 'DisasterItem'
