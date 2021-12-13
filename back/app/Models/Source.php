@@ -32,6 +32,18 @@ class Source extends Model
         return $source;
     }
 
+    public static function createOrFail($data)
+    {
+        $source = Source::where('nasa_id', $data['nasa_id'])->first();
+
+        if (!$source) {
+            $source = Source::create($data);
+            return $source;
+        }
+
+        return null;
+    }
+
     public function disasters()
     {
         return $this->belongsToMany(NaturalDisaster::class, "disaster_sources");

@@ -69,25 +69,31 @@ class NaturalDisasterController extends Controller
                 ]);
 
                 foreach ($event['categories'] as $category) {
-                    $new_category = Category::createIfNotExist([
+                    $new_category = Category::createOrFail([
                         'title' => $category['title'],
                         'nasa_id' => $category['id']
                     ]);
-                    DisasterCategory::create([
-                        'natural_disaster_id' => $disaster->id,
-                        'category_id' => $new_category->id,
-                    ]);
+                    
+                    if ($new_category) {
+                        DisasterCategory::createIfNotExist([
+                            'natural_disaster_id' => $disaster->id,
+                            'category_id' => $new_category->id,
+                        ]);
+                    }
                 }
     
                 foreach ($event['sources'] as $source) {
-                    $new_source = Source::createIfNotExist([
+                    $new_source = Source::createOrFail([
                         'url' => $source['url'],
                         'nasa_id' => $source['id']
                     ]);
-                    DisasterSource::create([
-                        'natural_disaster_id' => $disaster->id,
-                        'source_id' => $new_source->id,
-                    ]);
+
+                    if ($new_source) {
+                        DisasterSource::createIfNotExist([
+                            'natural_disaster_id' => $disaster->id,
+                            'source_id' => $new_source->id,
+                        ]);
+                    }   
                 }
     
                 foreach ($event['geometries'] as $geometry) {
@@ -101,7 +107,6 @@ class NaturalDisasterController extends Controller
                 }
             }
         }
-
 
         return response()->json([
             'message' => 'New saved events: ' . $countSavedDisasters

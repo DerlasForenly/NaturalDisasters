@@ -32,6 +32,19 @@ class Category extends Model
         return $category;
     }
 
+    public static function createOrFail($data)
+    {
+        $category = Category::where('nasa_id', $data['nasa_id'])->first();
+
+        if (!$category) {
+            $category = Category::create($data);
+            return $category;
+        }
+
+        return null;
+    }
+
+
     public function disasters()
     {
         return $this->belongsToMany(NaturalDisaster::class, "disaster_categories");
