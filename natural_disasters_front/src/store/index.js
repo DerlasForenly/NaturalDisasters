@@ -1,12 +1,7 @@
-import createStore from "vuex"
+import { createStore } from "vuex"
+import disastersModule from "./disastersModule"
 
 export default createStore({
-    state: {
-        disasters: []
-    },
-    getters: {
-
-    },
     mutations: {
 
     },
@@ -14,6 +9,6 @@ export default createStore({
 
     },
     modules: {
-
+		disasters: disastersModule
     }
 })

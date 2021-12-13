@@ -23,13 +23,13 @@ import DisasterItem from './DisasterItem.vue'
 
 export default {
   components: { DisasterItem },
+  name: 'DisastersTable',
 	props: {
 		disasters: {
-			type: Array,
+			type: Object,
 			required: true
 		}
-	},
-  name: 'DisastersTable'
+	}
 }
 </script>
 

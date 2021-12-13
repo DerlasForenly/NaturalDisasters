@@ -1,29 +1,27 @@
 <template>
 	<div class="row">
-		<button @click="prev">Prev</button>
-		<label>{{ page }}</label>
-		<button @click="next">Next</button>
+		<button @click="prevPage()">Prev</button>
+		<label>{{ $store.state.disasters.page }}</label>
+		<button @click="nextPage()">Next</button>
 	</div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   name: 'Pagination',
-  props: {
-		page: {
-			type: Number,
-			required: true
-		}
-  },
 	methods: {
-		prev() {
-			if (this.page - 1 <= 0) return 
-			this.$emit('change-page', this.page - 1)
-		},
-		next() {
-			this.$emit('change-page', this.page + 1)
-		}
+		...mapMutations({
+			nextPage: 'disasters/nextPage',
+			prevPage: 'disasters/prevPage',
+		})
 	},
+	computed: {
+		...mapState({
+      page: state => state.disasters.page,
+    }),
+	}
 }
 </script>
 

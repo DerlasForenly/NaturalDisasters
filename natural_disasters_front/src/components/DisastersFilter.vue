@@ -2,15 +2,17 @@
 	<form @event.prevent class="row">
 		<div class="row">
 			<label>Category:</label>
-			<select @change="changeCategory">
+			<select @change="setCategory">
 				<option>All</option>
 				<option v-for="category in categories" :key="category.id">{{ category.title }}</option>
 			</select>
 		</div>
 		<div class="row">
 			<label>Lines per page:</label>
-			<select @change="changeLines" :options="linesPerPage">
-				<option v-for="lines in linesPerPage" :key="lines">{{ lines }}</option>
+			<select @change="setLines">
+				<option>5</option>
+				<option>10</option>
+				<option>20</option>
 			</select>
 		</div>
 	</form>
@@ -18,22 +20,20 @@
 
 <script>
 import axios from 'axios'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'DisastersFilter',
 	data() {
 		return {
-			categories: [],
-			linesPerPage: [5, 10, 20]
+			categories: []
 		}
 	},
 	methods: {
-    changeCategory(event) {
-      this.$emit('change-category', event.target.value)
-    },
-		changeLines(event) {
-      this.$emit('change-lines', event.target.value)
-    },
+		...mapMutations({
+			setLines: 'disasters/setLines',
+			setCategory: 'disasters/setCategory',
+		}),
 		async fetchCategories() {
 			try {
 				const response = await axios.get(`https://eonet.gsfc.nasa.gov/api/v2.1/categories`)
