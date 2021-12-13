@@ -17,7 +17,8 @@ class CreateGeometriesTable extends Migration
             $table->id();
             $table->string('date');
             $table->string('type');
-            $table->string('coordinates');
+            $table->string('lng'); //0
+            $table->string('lat'); //1
 
             $table->unsignedBigInteger('natural_disaster_id');
             $table->foreign('natural_disaster_id')->references('id')->on('natural_disasters')->onDelete('cascade');

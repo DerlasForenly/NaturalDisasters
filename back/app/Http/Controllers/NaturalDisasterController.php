@@ -61,7 +61,8 @@ class NaturalDisasterController extends Controller
                         'natural_disaster_id' => $disaster['id'],
                         'date' => $geometry['date'],
                         'type' => $geometry['type'],
-                        'coordinates' => "[" . $geometry['coordinates'][0] . ", " . $geometry['coordinates'][1] . "]"
+                        'lng' => $geometry['coordinates'][0],
+                        'lat' => $geometry['coordinates'][1]
                     ]);
                 }
             }

@@ -12,7 +12,8 @@ class Geometry extends Model
     protected $fillable = [
         'date',
         'type',
-        'coordinates',
+        'lng',
+        'lat',
         'natural_disaster_id',
     ];
 
