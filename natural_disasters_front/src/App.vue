@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Earth Observatory Natural Event Tracker</h1>
     <div v-if="!isDisastersLoading">
       <disasters-filter/>
       <disasters-table :disasters="currentDisasters"/>
@@ -69,5 +70,10 @@ img {
   padding: 15px;
   box-shadow: 1px 1px 2px 2px lightgray;
   border-radius: 15px;
+}
+
+h1 {
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
 }
 </style>

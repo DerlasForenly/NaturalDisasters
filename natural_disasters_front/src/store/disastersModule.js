@@ -67,7 +67,6 @@ const disastersModule = {
     },
     actions: {
         async postDisasters({state, commit}) {
-			console.log('Sending POST request...')
             try {
 				commit('setDisastersSaving', true)
 				const response = await axios({
@@ -82,7 +81,7 @@ const disastersModule = {
 				commit('setDisastersSaving', false)
 				console.log('Events have been saved to database!')
             } catch (e) {
-              	console.log(e.message)
+                commit('addMessage', e.message)
             } finally {
 				commit('setDisastersSaving', false)
             }
@@ -94,7 +93,7 @@ const disastersModule = {
                 commit('setDisasters', response.data.events)
 				dispatch('postDisasters')
             } catch (e) {
-                console.log(e)
+                commit('addMessage', e.message)
             } finally {
                 commit('setLoading', false)
             }
