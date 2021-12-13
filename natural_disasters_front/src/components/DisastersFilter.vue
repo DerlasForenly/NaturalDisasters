@@ -51,6 +51,8 @@ export default {
 
 <style scoped>
 .row {
+	align-items: center;
+	height: fit-content;
 	margin: 5px;
 	display: flex;
 	flex-direction: row;
@@ -60,7 +62,7 @@ label {
 	padding: 5px;
 }
 
-select {
+select, button {
 	background: whitesmoke;
 	border-radius: 5px;
 	padding: 5px;

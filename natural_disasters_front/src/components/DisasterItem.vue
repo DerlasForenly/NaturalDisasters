@@ -27,9 +27,6 @@ export default {
 			return this.disaster.geometries[0].coordinates[1]
 		}
 	},
-	mounted() {
-
-	},
   name: 'DisasterItem'
 }
 </script>

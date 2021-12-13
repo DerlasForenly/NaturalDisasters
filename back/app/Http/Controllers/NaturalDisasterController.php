@@ -67,7 +67,11 @@ class NaturalDisasterController extends Controller
             }
         }
 
-        if ($countSavedDisasters > 0) {
+        if ($countSavedDisasters == 1) {
+            return response()->json([
+                'message' => 'New ' . $countSavedDisasters . ' event have been saved to DB',
+            ], 200);
+        } else if ($countSavedDisasters > 1) {
             return response()->json([
                 'message' => 'New ' . $countSavedDisasters . ' events have been saved to DB',
             ], 200);

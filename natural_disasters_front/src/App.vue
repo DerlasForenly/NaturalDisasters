@@ -1,10 +1,12 @@
 <template>
   <div>
-    <DisastersFilter v-if="!isDisastersLoading"/>
-    <DisastersTable v-if="!isDisastersLoading" :disasters="currentDisasters"/>
-    <div v-else>Loading</div>
-    <Pagination v-if="!isDisastersLoading"/>
-    <messages v-if="!isDisastersSaving" :messages="messages"></messages>
+    <div v-if="!isDisastersLoading">
+      <disasters-filter/>
+      <disasters-table :disasters="currentDisasters"/>
+      <pagination/>
+      <messages v-if="!isDisastersSaving" :messages="messages"></messages>
+    </div>
+    <img v-else src="./assets/loading.gif" alt="loading">
   </div>
 </template>
 
@@ -53,6 +55,11 @@ export default {
 </script>
 
 <style>
+img {
+  height: 130px;
+  width: 130px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
