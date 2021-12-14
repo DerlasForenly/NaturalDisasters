@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use App\Http\Requests\PostNaturalDisasterRequest;
+use Illuminate\Console\Command;
 use App\Models\Category;
 use App\Models\DisasterCategory;
 use App\Models\DisasterSource;
@@ -12,20 +10,45 @@ use App\Models\NaturalDisaster;
 use App\Models\Source;
 use App\Models\Geometry;
 
-class NaturalDisasterController extends Controller
+class UpdateDisasters extends Command
 {
-    public function index()
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'disasters:update';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Gets new disasters from NASA API and saves it to DB';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        return response()->json([
-            'events' => NaturalDisaster::all(),
-            'from_api' => $response,
-        ], 200);
+        parent::__construct();
     }
 
-    public function store(PostNaturalDisasterRequest $request) {
-        $countSavedDisasters = 0;
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $response = Http::acceptJson()->get('https://eonet.gsfc.nasa.gov/api/v2.1/events', [
+            'api_key' => env('NASA_API_KEY'),
+            'limit' => 5
+        ]);
 
-        foreach ($request->events as $event) {
+        foreach ($response->events as $event) {
             $disaster = NaturalDisaster::where('nasa_id', $event['id'])->first();
 
             if ($disaster) {
@@ -61,8 +84,6 @@ class NaturalDisasterController extends Controller
                     ]);
                 }
             } else {
-                $countSavedDisasters++;
-
                 $disaster = NaturalDisaster::create([
                     'title' => $event['title'],
                     'nasa_id' => $event['id'],
@@ -110,8 +131,6 @@ class NaturalDisasterController extends Controller
             }
         }
 
-        return response()->json([
-            'message' => 'New saved events: ' . $countSavedDisasters
-        ], 200);
+        return Command::SUCCESS;
     }
 }
