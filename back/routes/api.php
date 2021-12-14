@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\NaturalDisasterController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ use App\Http\Controllers\NaturalDisasterController;
 
 Route::post('events', [NaturalDisasterController::class, 'store']);
 Route::get('events', [NaturalDisasterController::class, 'index']);
+Route::get('categories', [CategoryController::class, 'index']);

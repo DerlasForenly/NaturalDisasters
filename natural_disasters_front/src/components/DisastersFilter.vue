@@ -19,30 +19,22 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'DisastersFilter',
-	data() {
-		return {
-			categories: []
-		}
-	},
 	methods: {
 		...mapActions({
 			setLines: 'disasters/setLines',
 			setCategory: 'disasters/setCategory',
+			fetchCategories: 'categories/fetchCategories'
 		}),
-		async fetchCategories() {
-			try {
-				const response = await axios.get(`https://eonet.gsfc.nasa.gov/api/v2.1/categories`)
-				this.categories = response.data.categories
-			} catch (e) {
-				console.log(e)
-			}
-		}
   },
+	computed: {
+		...mapState({
+			categories: state => state.categories.categories
+		})
+	},
 	mounted() {
 		this.fetchCategories()
 	},
