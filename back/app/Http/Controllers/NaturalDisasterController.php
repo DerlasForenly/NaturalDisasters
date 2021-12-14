@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\PostNaturalDisasterRequest;
 use App\Models\Category;
 use App\Models\DisasterCategory;
@@ -15,8 +16,14 @@ class NaturalDisasterController extends Controller
 {
     public function index()
     {
+        $response = Http::acceptJson()->get('https://eonet.gsfc.nasa.gov/api/v2.1/events', [
+            'api_key' => env('NASA_API_KEY'),
+            'limit' => 5
+        ]);
+
         return response()->json([
-            'events' => NaturalDisaster::all()
+            'events' => NaturalDisaster::all(),
+            'from_api' => $response,
         ], 200);
     }
 
