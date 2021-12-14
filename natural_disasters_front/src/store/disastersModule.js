@@ -7,8 +7,6 @@ const disastersModule = {
         disasters: [],
         isDisastersLoading: true,
         category: 'All',
-        isDisastersSaving: true,
-		messages: [],
     }),
     getters: {
     },
@@ -19,9 +17,6 @@ const disastersModule = {
         setLoading(state, bool) {
             state.isDisastersLoading = bool
         },
-		setDisastersSaving(state, bool) {
-			state.isDisastersSaving = bool
-		},
         setPage(state, page) {
             state.page = page
         },

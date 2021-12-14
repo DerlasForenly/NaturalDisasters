@@ -5,7 +5,6 @@
     <div v-if="!isDisastersLoading">
       <disasters-table :disasters="disasters"/>
       <pagination/>
-      <messages v-if="!isDisastersSaving" :messages="messages"></messages>
     </div>
     <img v-else src="./assets/loading.gif" alt="loading">
   </div>
@@ -15,7 +14,6 @@
 import DisastersFilter from "./components/DisastersFilter.vue"
 import DisastersTable from "./components/DisastersTable.vue"
 import Pagination from "./components/Pagination.vue"
-import Messages from "./components/Messages.vue"
 import { mapGetters, mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
@@ -24,7 +22,6 @@ export default {
     DisastersFilter,
     DisastersTable,
     Pagination,
-    Messages,
   },
   methods: {
 		...mapActions({
