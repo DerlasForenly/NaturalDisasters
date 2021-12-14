@@ -42,6 +42,6 @@ class Geometry extends Model
 
     public function getCoordinatesAttribute()
     {
-        return [$this->lat, $this->lng];
+        return [$this->lng, $this->lat];
     }   
 }
