@@ -18,7 +18,6 @@ class NaturalDisasterController extends Controller
     {
         if ($request->get('category') != 'All') {
             $category = Category::where('title', $request->get('category'))->first();
-            
             $disasters = $category->disasters()->paginate($request->get('limit'));
 
             return response()->json([
@@ -29,7 +28,6 @@ class NaturalDisasterController extends Controller
                 'events' => NaturalDisaster::paginate($request->get('limit')),
             ], 200);
         }
-        
     }
 
     public function store(PostNaturalDisasterRequest $request) {

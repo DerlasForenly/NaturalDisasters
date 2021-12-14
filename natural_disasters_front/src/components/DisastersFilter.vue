@@ -30,9 +30,6 @@ export default {
 		}
 	},
 	methods: {
-		...mapMutations({
-			
-		}),
 		...mapActions({
 			setLines: 'disasters/setLines',
 			setCategory: 'disasters/setCategory',
