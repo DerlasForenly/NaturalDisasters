@@ -15,7 +15,7 @@ const disastersModule = {
             const from = (state.page - 1) * state.lines
             const to = state.page * state.lines
 
-            return getters.filteredDisasters.slice(from, to)
+            return getters.filteredDisasters//.slice(from, to)
         },
         filteredDisasters(state) {
             const filtered = []
@@ -48,13 +48,13 @@ const disastersModule = {
         setPage(state, page) {
             state.page = page
         },
-		nextPage(state) {
-			state.page += 1
-		},
-		prevPage(state) {
+        nextPage(state) {
+            state.page += 1
+        },
+        prevPage(state) {
             if (state.page - 1 <= 0) return
 			state.page -= 1
-		},
+        },
         addMessage(state, message) {
             state.messages.push(message)
         },
@@ -66,6 +66,18 @@ const disastersModule = {
 		}
     },
     actions: {
+        setLines({dispatch, commit}, event) {
+			commit('setLines', event)
+            dispatch('fetchDisasters')
+		},
+        nextPage({dispatch, commit}) {
+			commit('nextPage')
+            dispatch('fetchDisasters')
+		},
+		prevPage({dispatch, commit}) {
+            commit('prevPage')
+            dispatch('fetchDisasters')
+		},
         async postDisasters({state, commit}) {
             try {
 				commit('setDisastersSaving', true)
@@ -89,16 +101,17 @@ const disastersModule = {
         async fetchDisasters({state, commit, dispatch}) {
             try {
                 commit('setLoading', true)
-                // const response = await axios.get(`https://eonet.gsfc.nasa.gov/api/v2.1/events`)
-                const response = await axios.get(`http://localhost:8000/api/events`)
-                commit('setDisasters', response.data.events)
-				// dispatch('postDisasters')
+                const response = await axios.get(`http://localhost:8000/api/events?page=${state.page}&limit=${state.lines}`)
+                commit('setDisasters', response.data.events.data)
             } catch (e) {
                 commit('addMessage', e.message)
             } finally {
                 commit('setLoading', false)
             }
-        }
+        },
+        async fetchFilteredDisasters({state, commit}) {
+
+        },
     },
     namespaced: true,
 }

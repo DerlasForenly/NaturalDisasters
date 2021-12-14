@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'Pagination',
 	methods: {
-		...mapMutations({
+		...mapActions({
 			nextPage: 'disasters/nextPage',
 			prevPage: 'disasters/prevPage',
 		})

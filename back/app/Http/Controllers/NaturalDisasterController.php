@@ -14,10 +14,10 @@ use App\Models\Geometry;
 
 class NaturalDisasterController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return response()->json([
-            'events' => NaturalDisaster::all(),
+            'events' => NaturalDisaster::paginate($request->get('limit')),
         ], 200);
     }
 

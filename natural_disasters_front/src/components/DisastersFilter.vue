@@ -20,7 +20,7 @@
 
 <script>
 import axios from 'axios'
-import { mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'DisastersFilter',
@@ -31,8 +31,10 @@ export default {
 	},
 	methods: {
 		...mapMutations({
-			setLines: 'disasters/setLines',
 			setCategory: 'disasters/setCategory',
+		}),
+		...mapActions({
+			setLines: 'disasters/setLines',
 		}),
 		async fetchCategories() {
 			try {

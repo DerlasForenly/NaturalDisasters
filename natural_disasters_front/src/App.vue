@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Earth Observatory Natural Event Tracker</h1>
+    <disasters-filter/>
     <div v-if="!isDisastersLoading">
-      <disasters-filter/>
       <disasters-table :disasters="currentDisasters"/>
       <pagination/>
       <messages v-if="!isDisastersSaving" :messages="messages"></messages>
