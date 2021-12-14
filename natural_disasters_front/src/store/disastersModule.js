@@ -89,9 +89,10 @@ const disastersModule = {
         async fetchDisasters({state, commit, dispatch}) {
             try {
                 commit('setLoading', true)
-                const response = await axios.get(`https://eonet.gsfc.nasa.gov/api/v2.1/events`)
+                // const response = await axios.get(`https://eonet.gsfc.nasa.gov/api/v2.1/events`)
+                const response = await axios.get(`http://localhost:8000/api/events`)
                 commit('setDisasters', response.data.events)
-				dispatch('postDisasters')
+				// dispatch('postDisasters')
             } catch (e) {
                 commit('addMessage', e.message)
             } finally {

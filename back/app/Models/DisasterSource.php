@@ -13,6 +13,7 @@ class DisasterSource extends Model
         'natural_disaster_id',
         'source_id',
     ];
+    
 
     public static function createIfNotExist($data)
     {

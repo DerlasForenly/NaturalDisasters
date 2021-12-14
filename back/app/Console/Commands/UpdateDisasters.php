@@ -45,11 +45,12 @@ class UpdateDisasters extends Command
     public function handle()
     {
         $response = Http::acceptJson()->get('https://eonet.gsfc.nasa.gov/api/v2.1/events', [
-            'api_key' => env('NASA_API_KEY'),
-            'limit' => 5
+            'api_key' => env('NASA_API_KEY')
         ]);
 
-        foreach ($response->events as $event) {
+        $response = $response->collect('events');
+
+        foreach ($response as $event) {
             $disaster = NaturalDisaster::where('nasa_id', $event['id'])->first();
 
             if ($disaster) {

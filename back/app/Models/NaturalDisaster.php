@@ -29,6 +29,8 @@ class NaturalDisaster extends Model
         'geometries',
     ];
 
+    
+
     public static function createIfNotExist($data)
     {
         $naturalDisaster = NaturalDisaster::where('nasa_id', $data['nasa_id'])->first();
@@ -66,4 +68,6 @@ class NaturalDisaster extends Model
     {
         return $this->hasMany(Geometry::class);
     }
+
+    
 }

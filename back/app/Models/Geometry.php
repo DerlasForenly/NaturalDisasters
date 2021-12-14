@@ -17,6 +17,18 @@ class Geometry extends Model
         'natural_disaster_id',
     ];
 
+    protected $hidden = [
+        'id',
+        'lat',
+        'lng',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $appends = [
+        'coordinates'
+    ];
+
     public static function createIfNotExist($data)
     {
         $geometry = Geometry::where('natural_disaster_id', $data['natural_disaster_id'])->where('date', $data['date'])->first();
@@ -27,4 +39,9 @@ class Geometry extends Model
 
         return $geometry;
     }
+
+    public function getCoordinatesAttribute()
+    {
+        return [$this->lat, $this->lng];
+    }   
 }

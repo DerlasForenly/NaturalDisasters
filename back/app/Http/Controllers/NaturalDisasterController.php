@@ -18,7 +18,6 @@ class NaturalDisasterController extends Controller
     {
         return response()->json([
             'events' => NaturalDisaster::all(),
-            'from_api' => $response,
         ], 200);
     }
 
