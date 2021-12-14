@@ -31,10 +31,11 @@ export default {
 	},
 	methods: {
 		...mapMutations({
-			setCategory: 'disasters/setCategory',
+			
 		}),
 		...mapActions({
 			setLines: 'disasters/setLines',
+			setCategory: 'disasters/setCategory',
 		}),
 		async fetchCategories() {
 			try {

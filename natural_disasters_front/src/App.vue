@@ -3,7 +3,7 @@
     <h1>Earth Observatory Natural Event Tracker</h1>
     <disasters-filter/>
     <div v-if="!isDisastersLoading">
-      <disasters-table :disasters="currentDisasters"/>
+      <disasters-table :disasters="disasters"/>
       <pagination/>
       <messages v-if="!isDisastersSaving" :messages="messages"></messages>
     </div>
@@ -48,9 +48,6 @@ export default {
       isDisastersSaving: state => state.disasters.isDisastersSaving,
       messages: state => state.disasters.messages,
     }),
-    ...mapGetters({
-			currentDisasters: 'disasters/currentDisasters'
-		}),
   }
 }
 </script>

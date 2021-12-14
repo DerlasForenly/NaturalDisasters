@@ -11,29 +11,6 @@ const disastersModule = {
 		messages: [],
     }),
     getters: {
-        currentDisasters(state, getters) {
-            const from = (state.page - 1) * state.lines
-            const to = state.page * state.lines
-
-            return getters.filteredDisasters//.slice(from, to)
-        },
-        filteredDisasters(state) {
-            const filtered = []
-
-            if (state.category === 'All') {
-                return state.disasters
-            }
-    
-            state.disasters.forEach(disaster => {
-                disaster.categories.forEach(category => {
-                    if (category.title === state.category) {
-                        filtered.push(disaster)
-                    }
-                })
-            })
-
-            return filtered
-        }
     },
     mutations: {
         setDisasters(state, disasters) {
@@ -70,6 +47,10 @@ const disastersModule = {
 			commit('setLines', event)
             dispatch('fetchDisasters')
 		},
+        setCategory({dispatch, commit}, event) {
+			commit('setCategory', event)
+            dispatch('fetchDisasters')
+		},
         nextPage({dispatch, commit}) {
 			commit('nextPage')
             dispatch('fetchDisasters')
@@ -100,8 +81,9 @@ const disastersModule = {
           },
         async fetchDisasters({state, commit, dispatch}) {
             try {
+                console.log(state.category)
                 commit('setLoading', true)
-                const response = await axios.get(`http://localhost:8000/api/events?page=${state.page}&limit=${state.lines}`)
+                const response = await axios.get(`http://localhost:8000/api/events?page=${state.page}&limit=${state.lines}&category=${state.category}`)
                 commit('setDisasters', response.data.events.data)
             } catch (e) {
                 commit('addMessage', e.message)

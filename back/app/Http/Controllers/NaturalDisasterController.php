@@ -16,9 +16,20 @@ class NaturalDisasterController extends Controller
 {
     public function index(Request $request)
     {
-        return response()->json([
-            'events' => NaturalDisaster::paginate($request->get('limit')),
-        ], 200);
+        if ($request->get('category') != 'All') {
+            $category = Category::where('title', $request->get('category'))->first();
+            
+            $disasters = $category->disasters()->paginate($request->get('limit'));
+
+            return response()->json([
+                'events' => $disasters
+            ], 200);
+        } else {
+            return response()->json([
+                'events' => NaturalDisaster::paginate($request->get('limit')),
+            ], 200);
+        }
+        
     }
 
     public function store(PostNaturalDisasterRequest $request) {

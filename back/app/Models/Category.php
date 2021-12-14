@@ -44,7 +44,6 @@ class Category extends Model
         return null;
     }
 
-
     public function disasters()
     {
         return $this->belongsToMany(NaturalDisaster::class, "disaster_categories");
